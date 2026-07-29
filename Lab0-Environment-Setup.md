@@ -51,7 +51,7 @@ This message shows that your installation appears to be working correctly.
 
 **Evidence:**
 
-![Picture1](Picture1.png)
+![Picture1](/Lab0-Assets/Picture1.png)
 ![Picture2](Picture2.png)
 
 ---
