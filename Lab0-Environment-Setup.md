@@ -52,7 +52,7 @@ This message shows that your installation appears to be working correctly.
 **Evidence:**
 
 ![Picture1](/Lab0-Assets/Picture1.png)
-![Picture2](Picture2.png)
+![Picture2](/Lab0-Assets/Picture2.png)
 
 ---
 
@@ -75,7 +75,7 @@ aws-cli/2.36.9 Python/3.14.6 Windows/11 exe/AMD64
 
 **Evidence:**
 
-![Picture3](Picture3.png)
+![Picture3](/Lab0-Assets/Picture3.png)
 
 ---
 
@@ -98,7 +98,7 @@ Kustomize Version: v5.0.4-0.20230601165947-6ce0bf390ce3
 
 **Evidence:**
 
-![Picture4](Picture4.png)
+![Picture4](/Lab0-Assets/Picture4.png)
 
 ---
 
@@ -121,7 +121,7 @@ OpenSSL 3.5.4 30 Sep 2025 (Library: OpenSSL 3.5.4 30 Sep 2025)
 
 **Evidence:**
 
-![Picture5.1](Picture5.1.png)
+![Picture5.1](/Lab0-Assets/Picture5.1.png)
 
 ---
 
@@ -161,12 +161,12 @@ localstack
 
 **Evidence:**
 
-![Picture6](Picture6.png)
-![Picture7](Picture7.png)
-![Picture8](Picture8.png)
-![Picture9.1](Picture9.1.png)
-![Picture10](Picture10.png)
-![Picture11](Picture11.png)
+![Picture6](/Lab0-Assets/Picture6.png)
+![Picture7](/Lab0-Assets/Picture7.png)
+![Picture8](/Lab0-Assets/Picture8.png)
+![Picture9.1](/Lab0-Assets/Picture9.1.png)
+![Picture10](/Lab0-Assets/Picture10.png)
+![Picture11](/Lab0-Assets/Picture11.png)
 
 ---
 
@@ -232,11 +232,11 @@ Deleted nodes: ["ccse-control-plane"]
 
 **Evidence:**
 
-![Picture18](Picture18.png)
-![Picture17](Picture17.png)
-![Picture14](Picture14.png)
-![Picture15](Picture15.png)
-![Picture16](Picture16.png)
+![Picture18](/Lab0-Assets/Picture18.png)
+![Picture17](/Lab0-Assets/Picture17.png)
+![Picture14](/Lab0-Assets/Picture14.png)
+![Picture15](/Lab0-Assets/Picture15.png)
+![Picture16](/Lab0-Assets/Picture16.png)
 
 ---
 
@@ -278,8 +278,8 @@ The command returned the LocalStack test identity:
 
 **Evidence:**
 
-![Picture12](Picture12.png)
-![Picture13](Picture13.png)
+![Picture12](/Lab0-Assets/Picture12.png)
+![Picture13](/Lab0-Assets/Picture13.png)
 
 ---
 
