@@ -51,8 +51,8 @@ ID_LIKE=debian
 
 **Evidence:**
 
-![1lab2](1lab2.png)
-![2lab2](2lab2.png)
+![1lab2](1lab1.png)
+![2lab2](2lab1.png)
 
 ---
 
@@ -68,7 +68,7 @@ The output confirmed all services — including `acm`, `apigateway`, `cloudforma
 
 **Evidence:**
 
-![3lab2](3lab2.png)
+![3lab2](3lab1.png)
 
 ---
 
@@ -95,8 +95,8 @@ $ EP="--endpoint-url=http://localhost:4566"
 
 **Evidence:**
 
-![4lab2](4lab2.png)
-![5lab2](5lab2.png)
+![4lab2](4lab1.png)
+![5lab2](5lab1.png)
 
 ---
 
@@ -129,8 +129,8 @@ $ aws $EP iam attach-group-policy \
 
 **Evidence:**
 
-![6lab2](6lab2.png)
-![7lab2](7lab2.png)
+![6lab2](6lab1.png)
+![7lab2](7lab1.png)
 
 ---
 
@@ -163,8 +163,8 @@ $ aws $EP iam add-user-to-group \
 
 **Evidence:**
 
-![8lab2](8lab2.png)
-![9lab2](9lab2.png)
+![8lab2](8lab1.png)
+![9lab2](9lab1.png)
 
 ---
 
@@ -212,10 +212,10 @@ $ aws $EP iam list-attached-user-policies \
 
 **Evidence:**
 
-![10lab2](10lab2.png)
-![11lab2](11lab2.png)
-![12lab2](12lab2.png)
-![13lab2](13lab2.png)
+![10lab2](10lab1.png)
+![11lab2](11lab1.png)
+![12lab2](12lab1.png)
+![13lab2](13lab1.png)
 
 ---
 
@@ -259,9 +259,9 @@ $ aws $EP iam update-access-key \
 
 **Evidence:**
 
-![14lab2](14lab2.png)
-![15lab2](15lab2.png)
-![16lab2](16lab2.png)
+![14lab2](14lab1.png)
+![15lab2](15lab1.png)
+![16lab2](16lab1.png)
 
 ---
 
@@ -295,8 +295,8 @@ ccse-lab1-control-plane    Ready    control-plane  13m   v1.30.0
 
 **Evidence:**
 
-![17lab2](17lab2.png)
-![18lab2](18lab2.png)
+![17lab2](17lab1.png)
+![18lab2](18lab1.png)
 
 ---
 
@@ -326,7 +326,7 @@ prod               Active   0s
 
 **Evidence:**
 
-![19lab2](19lab2.png)
+![19lab2](19lab1.png)
 
 ---
 
@@ -343,7 +343,7 @@ serviceaccount/dev-user created
 
 **Evidence:**
 
-![20lab2](20lab2.png)
+![20lab2](20lab1.png)
 
 ---
 
@@ -362,7 +362,7 @@ role.rbac.authorization.k8s.io/pod-reader created
 
 **Evidence:**
 
-![21lab2](21lab2.png)
+![21lab2](21lab1.png)
 
 ---
 
@@ -381,7 +381,7 @@ rolebinding.rbac.authorization.k8s.io/dev-user-binding created
 
 **Evidence:**
 
-![22lab2](22lab2.png)
+![22lab2](22lab1.png)
 
 ---
 
@@ -414,9 +414,9 @@ no
 
 **Evidence:**
 
-![23lab2](23lab2.png)
-![24lab2](24lab2.png)
-![25lab2](25lab2.png)
+![23lab2](23lab1.png)
+![24lab2](24lab1.png)
+![25lab2](25lab1.png)
 
 ---
 
@@ -448,7 +448,7 @@ subjects:
 
 **Evidence:**
 
-![26lab2](26lab2.png)
+![26lab2](26lab1.png)
 
 ---
 
