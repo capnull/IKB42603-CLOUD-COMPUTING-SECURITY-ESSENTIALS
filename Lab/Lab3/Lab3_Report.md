@@ -1,4 +1,4 @@
-﻿# Lab 3: Data Protection â€” Encryption & Key Management
+﻿﻿# Lab 3: Data Protection — Encryption & Key Management
 
 **Name:** Muhammad Asyraf bin Aznan
 
@@ -26,11 +26,11 @@ This report documents the completion of Lab 3, covering data protection techniqu
 
 ---
 
-## Session A (Week 5) â€” Encryption Fundamentals
+## Session A (Week 5) — Encryption Fundamentals
 
 ---
 
-## Task 1 â€” Symmetric Encryption (Data at Rest)
+## Task 1 — Symmetric Encryption (Data at Rest)
 
 A sample sensitive patient record was created and encrypted using AES-256-CBC with PBKDF2 key derivation. The encrypted file was confirmed unreadable, and a successful decryption was verified using `diff`.
 
@@ -61,7 +61,7 @@ diff record.txt record.dec.txt && echo 'MATCH: decryption successful'
 
 ---
 
-## Task 2 â€” Asymmetric Encryption & Digital Signatures
+## Task 2 — Asymmetric Encryption & Digital Signatures
 
 A 2048-bit RSA key pair was generated. The public key was used to encrypt the record file and the private key was used to decrypt it. The private key was then used to produce a digital signature, which was verified with the public key.
 
@@ -89,7 +89,7 @@ openssl dgst -sha256 -verify public.pem -signature record.sig record.txt
 
 ---
 
-## Task 3 â€” Encryption in Transit (TLS)
+## Task 3 — Encryption in Transit (TLS)
 
 A self-signed TLS certificate was generated for `localhost`. An Nginx container was run with the certificate and key mounted, serving `record.txt` over HTTPS on port 8443. The file was fetched using `curl` with the `-k` flag to accept the self-signed certificate.
 
@@ -127,7 +127,7 @@ docker stop tls
 
 ---
 
-## Session B (Week 6) â€” Key Management, Envelope Encryption & Erasure
+## Session B (Week 6) — Key Management, Envelope Encryption & Erasure
 
 LocalStack was started and the AWS CLI endpoint variable was set before beginning Session B tasks:
 
@@ -137,7 +137,7 @@ EP='--endpoint-url=http://localhost:4566'
 
 ---
 
-## Task 4 â€” Create and Use a KMS Master Key
+## Task 4 — Create and Use a KMS Master Key
 
 A Customer Master Key (CMK) was created in LocalStack KMS for Tenant A. The returned `KeyId` was captured and used to perform a direct KMS encryption of a small secret.
 
@@ -166,7 +166,7 @@ aws $EP kms encrypt \
 
 ---
 
-## Task 5 â€” Envelope Encryption
+## Task 5 — Envelope Encryption
 
 Instead of encrypting large data directly with the master key, KMS was asked to generate a data key. The plaintext copy was used locally to encrypt `record.txt` with AES-256, then immediately destroyed. Only the KMS-wrapped (encrypted) copy of the data key was retained on disk alongside the ciphertext.
 
@@ -185,7 +185,7 @@ base64 -d datakey.b64 > datakey.bin
 openssl enc -aes-256-cbc -pbkdf2 -in record.txt -out record.env.enc \
   -pass file:./datakey.bin
 
-# 5.3 Destroy the plaintext data key from disk â€” keep only the wrapped copy
+# 5.3 Destroy the plaintext data key from disk — keep only the wrapped copy
 rm datakey.bin datakey.b64
 echo 'Only the KMS-wrapped data key (datakey.enc) remains.'
 ```
@@ -200,7 +200,7 @@ echo 'Only the KMS-wrapped data key (datakey.enc) remains.'
 
 ---
 
-## Task 6 â€” Per-Tenant Keys & Cryptographic Erasure
+## Task 6 — Per-Tenant Keys & Cryptographic Erasure
 
 A second CMK was created for Tenant B to demonstrate key isolation. Tenant A's key was then scheduled for deletion and immediately disabled. An attempt to unwrap Tenant A's data key was made and failed, proving cryptographic erasure.
 
@@ -215,11 +215,11 @@ aws $EP kms schedule-key-deletion --key-id $KEY_A --pending-window-in-days 7
 # Disable it immediately to simulate erasure
 aws $EP kms disable-key --key-id $KEY_A
 
-# Attempt to unwrap tenant A's data key now â€” it should FAIL
+# Attempt to unwrap tenant A's data key now — it should FAIL
 aws $EP kms decrypt --ciphertext-blob fileb://datakey.enc 2>&1 | head -3
 ```
 
-**Result:** The `kms decrypt` command failed with a `KMSInvalidStateException` or `DisabledException` error, confirming that disabling the master key makes the wrapped data key â€” and by extension `record.env.enc` â€” permanently unreadable. Tenant B's key was unaffected.
+**Result:** The `kms decrypt` command failed with a `KMSInvalidStateException` or `DisabledException` error, confirming that disabling the master key makes the wrapped data key — and by extension `record.env.enc` — permanently unreadable. Tenant B's key was unaffected.
 
 > **Caution:** Once the key that wrapped the data key is gone, `record.env.enc` is just noise. No one, not even the provider, can decrypt it. This is why per-object/per-tenant keys make deletion provable.
 
@@ -230,7 +230,7 @@ aws $EP kms decrypt --ciphertext-blob fileb://datakey.enc 2>&1 | head -3
 
 ---
 
-## Task 7 â€” Integrity & Tamper-Evidence
+## Task 7 — Integrity & Tamper-Evidence
 
 The SHA-256 fingerprint of `record.txt` was computed. A tampered copy was created and its hash was shown to differ. A simple hash chain was then constructed where each entry commits to the previous hash, producing a tamper-evident log.
 
@@ -250,7 +250,7 @@ for line in 'login ok' 'file read' 'export data'; do
 done
 ```
 
-**Result:** The two `sha256sum` outputs differed completely despite only a single character being appended â€” demonstrating hash sensitivity (avalanche effect). The hash chain output showed three chained log entries, each entry's hash depending on all prior entries, making retroactive tampering detectable.
+**Result:** The two `sha256sum` outputs differed completely despite only a single character being appended — demonstrating hash sensitivity (avalanche effect). The hash chain output showed three chained log entries, each entry's hash depending on all prior entries, making retroactive tampering detectable.
 
 **Evidence:**
 
@@ -281,7 +281,7 @@ done
 - Symmetric (AES) is much faster; suited for bulk data encryption.
 - Asymmetric (RSA) is slower; uses modular exponentiation on large numbers.
 - Symmetric requires both parties to share the same secret key securely.
-- Asymmetric solves this â€” public key is shared openly; private key stays secret.
+- Asymmetric solves this — public key is shared openly; private key stays secret.
 - AES is used for files, disks, and the data phase of TLS.
 - RSA/ECC is used for key exchange, signatures, and certificates.
 - Envelope encryption combines both for speed and strong key control.
@@ -293,7 +293,7 @@ done
 - AES-256 and RSA-2048 are mathematically unbreakable with current computing.
 - The real risk is how keys are stored, rotated, and revoked.
 - Keys hardcoded or stored in plaintext config files are easily stolen.
-- Stealing a key defeats encryption instantly â€” no brute-force needed.
+- Stealing a key defeats encryption instantly — no brute-force needed.
 - Over-privileged IAM roles expose keys to unintended cloud principals.
 - KMS and HSMs exist to enforce access control and prevent key export.
 
@@ -305,7 +305,7 @@ done
 - The data key is then wrapped (encrypted) by the KMS master key (CMK).
 - Only the wrapped data key and ciphertext are stored on disk.
 - The plaintext data key is destroyed immediately after local encryption.
-- Only one master key exists per tenant â€” practical to protect in HSM.
+- Only one master key exists per tenant — practical to protect in HSM.
 - Data keys are ephemeral; they never persist outside memory.
 - Compromising one data key affects only one record, not all data.
 - Master key never leaves the HSM; KMS decrypts inside the hardware boundary.
@@ -330,8 +330,9 @@ done
 - Each entry's hash is computed over `previous_hash + current_entry`.
 - Modifying any past entry changes its hash and all subsequent hashes.
 - An observer recomputes the chain and detects the mismatch immediately.
-- Tamper-evident only â€” attacker with write access can recompute the chain.
+- Tamper-evident only — attacker with write access can recompute the chain.
 - Tamper-proof requires anchoring the chain tip to an external trusted store.
 - AWS CloudTrail uses hash-chained digests signed and stored in S3.
 - Auditors validate the full chain to confirm no records were altered.
+
 
