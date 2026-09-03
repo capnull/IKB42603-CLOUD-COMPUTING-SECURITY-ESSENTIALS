@@ -26,7 +26,7 @@ This report documents the monitoring, logging, and incident detection activities
 
 ---
 
-## Session A (Week 9) — Logging & Centralisation
+## Session A  — Logging & Centralisation
 
 ### Setup — Start LocalStack
 
@@ -110,12 +110,12 @@ grep LOGIN_FAIL auth.log | awk '{print $3, $4}' | sort | uniq -c
 Output:
 
 ```text
-4 user=admin ip=203.0.113.9
+4 user=admin ip=[REDACTED]
 ```
 
 Four failed login attempts were recorded from a single IP, which is a clear indicator of a brute-force attempt.
 
-**Result:** 4 failed login attempts detected from IP `203.0.113.9`, confirming anomalous activity.
+**Result:** 4 failed login attempts detected from IP `[REDACTED]`, confirming anomalous activity.
 
 **Evidence:**
 
@@ -289,7 +289,7 @@ cat evidence.sha256
 Output:
 
 ```text
-0adc5d2ac06cbbdd366099bcc0540c4c0f76946e71b52e4c99322731696a203b  evidence_20260903.log
+[REDACTED]  evidence_20260903.log
 ```
 
 **Result:** Evidence file `evidence_20260903.log` created and hash recorded in `evidence.sha256`.
@@ -355,7 +355,7 @@ No single event was sufficient to detect the incident. Only the correlation of a
 
 ### Containment
 
-An `iptables DROP` rule was applied to block all inbound traffic from `203.0.113.9`. This was modelled inside a Docker container with `NET_ADMIN` capability, confirming the rule was active and effective.
+An `iptables DROP` rule was applied to block all inbound traffic from `[REDACTED]`. This was modelled inside a Docker container with `NET_ADMIN` capability, confirming the rule was active and effective.
 
 ### Evidence & Integrity
 
@@ -374,7 +374,7 @@ A single log line is rarely sufficient to detect a sophisticated attack. Central
 **Q1. What is the difference between a log and an event? Give an example of each from this lab.**
 
 - A **log** is a durable, stored record of what happened.
-  - Example: `2025-03-01T09:01:10 LOGIN_FAIL user=admin ip=203.0.113.9` written to `auth.log`.
+  - Example: `2025-03-01T09:01:10 LOGIN_FAIL user=admin ip=[REDACTED]` written to `auth.log`.
 - An **event** is a real-time trigger fired when a condition is met.
   - Example: The `ALERT: probable brute-force → compromise → data exfiltration` message fired by the correlation script.
 
@@ -418,7 +418,7 @@ This lab demonstrated the full monitoring and incident-response lifecycle using 
 |---|---|---|
 | Task 1 | Generate application logs | `auth.log` created with 7 entries |
 | Task 2 | Centralise logs to CloudWatch | All events shipped and retrieved |
-| Task 3 | Query failed logins by IP | 4 failures from `203.0.113.9` detected |
+| Task 3 | Query failed logins by IP | 4 failures from `[REDACTED]` detected |
 | Task 4 | Hash-chained tamper-proof log | Tampering detected via hash mismatch |
 | Task 5 | Correlate events for incident detection | ALERT triggered for brute-force + exfiltration |
 | Task 6 | Incident response (contain + evidence) | IP blocked, evidence hashed and verified |
