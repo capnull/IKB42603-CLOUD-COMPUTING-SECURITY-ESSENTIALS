@@ -48,12 +48,12 @@ A synthetic authentication log (`auth.log`) was created containing a sequence of
 ```bash
 cat > auth.log <<'EOF'
 2025-03-01T09:00:01 LOGIN_OK    user=ahmad   ip=10.0.0.5
-2025-03-01T09:01:10 LOGIN_FAIL  user=admin   ip=203.0.113.9
-2025-03-01T09:01:12 LOGIN_FAIL  user=admin   ip=203.0.113.9
-2025-03-01T09:01:15 LOGIN_FAIL  user=admin   ip=203.0.113.9
-2025-03-01T09:01:18 LOGIN_FAIL  user=admin   ip=203.0.113.9
-2025-03-01T09:01:22 LOGIN_OK    user=admin   ip=203.0.113.9
-2025-03-01T09:01:40 EXPORT_DATA user=admin   ip=203.0.113.9 size=500MB
+2025-03-01T09:01:10 LOGIN_FAIL  user=admin   ip=[REDACTED]
+2025-03-01T09:01:12 LOGIN_FAIL  user=admin   ip=[REDACTED]
+2025-03-01T09:01:15 LOGIN_FAIL  user=admin   ip=[REDACTED]
+2025-03-01T09:01:18 LOGIN_FAIL  user=admin   ip=[REDACTED]
+2025-03-01T09:01:22 LOGIN_OK    user=admin   ip=[REDACTED]
+2025-03-01T09:01:40 EXPORT_DATA user=admin   ip=[REDACTED] size=500MB
 EOF
 cat auth.log
 ```
@@ -218,7 +218,7 @@ Output confirmed `TAMPERING DETECTED`.
 The three-phase attack pattern (brute-force → compromise → exfiltration) was detected by correlating multiple events from the same IP address. No single log line alone would have triggered an alert.
 
 ```bash
-IP=203.0.113.9
+IP=[REDACTED]
 FAILS=$(grep -c "LOGIN_FAIL.*$IP" auth.log)
 SUCCESS=$(grep -c "LOGIN_OK.*$IP"  auth.log)
 EXPORT=$(grep -c "EXPORT_DATA.*$IP" auth.log)
@@ -228,7 +228,7 @@ echo "IP=$IP fails=$FAILS success=$SUCCESS export=$EXPORT"
 Output:
 
 ```text
-IP=203.0.113.9 fails=4 success=1 export=1
+IP=[REDACTED] fails=4 success=1 export=1
 ```
 
 The correlation rule triggered an alert because the thresholds (≥3 failures, ≥1 success, ≥1 export) were all met:
@@ -265,10 +265,10 @@ The attacker's IP was blocked using an `iptables DROP` rule inside an Alpine con
 
 ```bash
 docker run --rm --cap-add=NET_ADMIN alpine sh -c \
-  'apk add -q iptables; iptables -A INPUT -s 203.0.113.9 -j DROP; iptables -L INPUT -n | tail -2'
+  'apk add -q iptables; iptables -A INPUT -s [REDACTED] -j DROP; iptables -L INPUT -n | tail -2'
 ```
 
-Output confirmed a `DROP` rule for `203.0.113.9` was successfully added.
+Output confirmed a `DROP` rule for `[REDACTED]` was successfully added.
 
 **Result:** Attacker IP blocked at network level. Further inbound traffic from this IP will be dropped.
 
@@ -342,7 +342,7 @@ Output confirmed log group `/ccse/app` exists with `storedBytes: 397`.
 
 ### Detection
 
-Repeated `LOGIN_FAIL` events (4 attempts) from IP `203.0.113.9` within 12 seconds were identified from `auth.log`. This was followed by a successful login and a 500 MB `EXPORT_DATA` event from the same IP. Correlation of all three event types triggered the automated alert: `probable brute-force → compromise → data exfiltration`.
+Repeated `LOGIN_FAIL` events (4 attempts) from IP `[REDACTED]` within 12 seconds were identified from `auth.log`. This was followed by a successful login and a 500 MB `EXPORT_DATA` event from the same IP. Correlation of all three event types triggered the automated alert: `probable brute-force → compromise → data exfiltration`.
 
 ### Analysis
 
