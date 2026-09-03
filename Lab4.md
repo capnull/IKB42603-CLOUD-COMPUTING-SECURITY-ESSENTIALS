@@ -39,7 +39,7 @@ The service was started using Docker with a hashed password for the user `studen
 ```text
 docker run -d --name authsvc -p 8080:80 \
   -e HTPASSWD_USER=student \
-  -e HTPASSWD_PASS='P@ssword!' \
+  -e HTPASSWD_PASS='[REDACTED]' \
   httpd:2.4-alpine
 ```
 
@@ -53,7 +53,7 @@ HTTP/1.1 401 Unauthorized
 A second request with valid credentials confirmed the 200 success:
 
 ```text
-curl -i -u student:'P@ssword!' http://localhost:8080
+curl -i -u student:'[REDACTED]' http://localhost:8080
 HTTP/1.1 200 OK
 ```
 
