@@ -1,0 +1,3 @@
+# Exclude example report and Word documents
+ExampleReport.md
+*.docx
